@@ -110,7 +110,7 @@ node{
 			openshift.withCluster() {
 				openshift.withProject("spring-dev") {
 					//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
-					openshift.set("image", "dc/calculadora", "calculadora=docker-registry.default.svc:5000/spring-dev/calculadora:${devTag}")
+					openshift.set("image", "dc/calculadora", "calculadora=172.30.1.1:5000/spring-dev/calculadora:${devTag}")
 					
 					// Deploy the development application.
 					openshift.selector("dc", "calculadora").rollout().latest();
