@@ -104,7 +104,34 @@ node{
 			  }
 			echo "Termina creación image"
 		}
-        
+
+		stage('Deploy to DEV'){
+			echo "Inicia Deploy"
+			openshift.withCluster() {
+				openshift.withProject("spring-dev") {
+					//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
+					openshift.set("image", "dc/calculadora", "calculadora=docker-registry.default.svc:5000/spring-dev/calculadora:${devTag}")
+					
+					// Deploy the development application.
+					openshift.selector("dc", "calculadora").rollout().latest();
+		  
+					// Wait for application to be deployed
+					def dc = openshift.selector("dc", "calculadora").object()
+					def dc_version = dc.status.latestVersion
+					echo "La ultima version es: "+dc_version
+					def rc = openshift.selector("rc", "calculadora-${dc_version}").object()
+		  
+					echo "Waiting for ReplicationController calculadora-${dc_version} to be ready"
+					while (rc.spec.replicas != rc.status.readyReplicas) {
+					  sleep 5
+					  rc = openshift.selector("rc", "calculadora-${dc_version}").object()
+					}
+					
+				}
+			}
+			
+			echo "Termina Deploy"
+		}
 		
 		
 		}catch(e){
