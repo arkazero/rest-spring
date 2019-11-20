@@ -105,8 +105,6 @@ node{
 				openshift.withProject("spring-dev") {
 				  openshift.selector("bc", "calculadora-spring").startBuild("--from-file=./target/rest-app-${version}.jar", "--wait=true")
 		
-				  // OR use the file you just published into Nexus:
-				  // "--from-file=http://nexus3.${prefix}-nexus.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.war"
 				  openshift.tag("calculadora-spring:latest", "calculadora-spring:${devTag}")
 				}
 			  }
