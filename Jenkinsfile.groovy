@@ -131,11 +131,9 @@ node{
 					while (rc.spec.replicas != rc.status.readyReplicas) {
 					  sleep 5
 					  rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
-					}
-					
+					}		
 				}
 			}
-			
 			echo "Termina Deploy"
 		}
 		
