@@ -89,57 +89,57 @@ node{
         }
         
         //Public in repository
-		stage('Publish to Nexus') {
-			echo "Publish to Nexus"
-			// TBD
-			sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-releases/ "+
-			"-DaltSnapshotDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-snapshots/"
-		}
-        
-        stage('Create Image'){
-			echo "Inicia creación image"
-			echo devTag
-			echo prodTag
-			
-			openshift.withCluster() {
-				openshift.withProject("spring-dev") {
-				  openshift.selector("bc", "calculadora-spring").startBuild("--from-file=./target/rest-app-${version}.jar", "--wait=true")
-		
-				  // OR use the file you just published into Nexus:
-				  // "--from-file=http://nexus3.${prefix}-nexus.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.war"
-				  openshift.tag("calculadora-spring:latest", "calculadora-spring:${devTag}")
-				}
-			  }
-			echo "Termina creación image"
-		}
+//		stage('Publish to Nexus') {
+//			echo "Publish to Nexus"
+//			// TBD
+//			sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-releases/ "+
+//			"-DaltSnapshotDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-snapshots/"
+//		}
+//        
+//        stage('Create Image'){
+//			echo "Inicia creación image"
+//			echo devTag
+//			echo prodTag
+//			
+//			openshift.withCluster() {
+//				openshift.withProject("spring-dev") {
+//				  openshift.selector("bc", "calculadora-spring").startBuild("--from-file=./target/rest-app-${version}.jar", "--wait=true")
+//		
+//				  // OR use the file you just published into Nexus:
+//				  // "--from-file=http://nexus3.${prefix}-nexus.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.war"
+//				  openshift.tag("calculadora-spring:latest", "calculadora-spring:${devTag}")
+//				}
+//			  }
+//			echo "Termina creación image"
+//		}
 
-		stage('Deploy to DEV'){
-			echo "Inicia Deploy"
-			openshift.withCluster() {
-				openshift.withProject("spring-dev") {
-					//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
-					openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-dev/calculadora-spring:${devTag}")
-					
-					// Deploy the development application.
-					openshift.selector("dc", "calculadora-spring").rollout().latest();
-		  
-					// Wait for application to be deployed
-					def dc = openshift.selector("dc", "calculadora-spring").object()
-					def dc_version = dc.status.latestVersion
-					echo "La ultima version es: "+dc_version
-					def rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
-		  
-					echo "Waiting for ReplicationController calculadora-spring-${dc_version} to be ready"
-					while (rc.spec.replicas != rc.status.readyReplicas) {
-					  sleep 5
-					  rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
-					}
-					
-				}
-			}
-			
-			echo "Termina Deploy"
-		}
+//		stage('Deploy to DEV'){
+//			echo "Inicia Deploy"
+//			openshift.withCluster() {
+//				openshift.withProject("spring-dev") {
+//					//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
+//					openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-dev/calculadora-spring:${devTag}")
+//					
+//					// Deploy the development application.
+//					openshift.selector("dc", "calculadora-spring").rollout().latest();
+//		  
+//					// Wait for application to be deployed
+//					def dc = openshift.selector("dc", "calculadora-spring").object()
+//					def dc_version = dc.status.latestVersion
+//					echo "La ultima version es: "+dc_version
+//					def rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
+//		  
+//					echo "Waiting for ReplicationController calculadora-spring-${dc_version} to be ready"
+//					while (rc.spec.replicas != rc.status.readyReplicas) {
+//					  sleep 5
+//					  rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
+//					}
+//					
+//				}
+//			}
+//			
+//			echo "Termina Deploy"
+//		}
 		
 		
 		}catch(e){
