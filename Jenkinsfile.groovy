@@ -24,7 +24,7 @@ node{
 			// bypass the router). The file settings.xml
 			// needs to be in the Source Code repository.
 			
-			mvnCmd = "${mvnHome}/bin/mvn "
+			mvnCmd = "${mvnHome}/bin/mvn  -s ./settings.xml "
 			
 			
 			env.JAVA_HOME=tool 'JDK18'
