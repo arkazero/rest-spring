@@ -96,22 +96,22 @@ node{
 			"-DaltSnapshotDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-snapshots/"
 		}
         
-//        stage('Create Image'){
-//			echo "Inicia creación image"
-//			echo devTag
-//			echo prodTag
-//			
-//			openshift.withCluster() {
-//				openshift.withProject("spring-dev") {
-//				  openshift.selector("bc", "calculadora-spring").startBuild("--from-file=./target/rest-app-${version}.jar", "--wait=true")
-//		
-//				  // OR use the file you just published into Nexus:
-//				  // "--from-file=http://nexus3.${prefix}-nexus.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.war"
-//				  openshift.tag("calculadora-spring:latest", "calculadora-spring:${devTag}")
-//				}
-//			  }
-//			echo "Termina creación image"
-//		}
+        stage('Create Image'){
+			echo "Inicia creación image"
+			echo devTag
+			echo prodTag
+			
+			openshift.withCluster() {
+				openshift.withProject("spring-dev") {
+				  openshift.selector("bc", "calculadora-spring").startBuild("--from-file=./target/rest-app-${version}.jar", "--wait=true")
+		
+				  // OR use the file you just published into Nexus:
+				  // "--from-file=http://nexus3.${prefix}-nexus.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.war"
+				  openshift.tag("calculadora-spring:latest", "calculadora-spring:${devTag}")
+				}
+			  }
+			echo "Termina creación image"
+		}
 
 //		stage('Deploy to DEV'){
 //			echo "Inicia Deploy"
