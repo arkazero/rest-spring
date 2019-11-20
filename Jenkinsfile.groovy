@@ -89,13 +89,13 @@ node{
         }
         
         //Public in repository
-//		stage('Publish to Nexus') {
-//			echo "Publish to Nexus"
-//			// TBD
-//			sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-releases/ "+
-//			"-DaltSnapshotDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-snapshots/"
-//		}
-//        
+		stage('Publish to Nexus') {
+			echo "Publish to Nexus"
+			// TBD
+			sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-releases/ "+
+			"-DaltSnapshotDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-snapshots/"
+		}
+        
 //        stage('Create Image'){
 //			echo "Inicia creación image"
 //			echo devTag
