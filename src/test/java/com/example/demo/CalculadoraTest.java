@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RestAppApplication.class})
+@TestPropertySource(locations="classpath:application.properties")
 public class CalculadoraTest {
 	
 	@Autowired
