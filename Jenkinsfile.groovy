@@ -136,6 +136,12 @@ node{
 				}
 				echo "Termina Deploy"
 			}
+			
+				//Deploy to QA
+		stage('Deploy to QA') {
+			input "Deploy to QA?"
+			echo "Deployed qa"
+		}
 		
 		}catch(e){
 	        statusProcess = "Proceso con error"
