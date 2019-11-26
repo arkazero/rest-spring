@@ -24,7 +24,7 @@ node{
 			// bypass the router). The file settings.xml
 			// needs to be in the Source Code repository.
 			
-			mvnCmd = "${mvnHome}/bin/mvn  -s ./settings.xml "
+			mvnCmd = "${mvnHome}/bin/mvn "
 			
 			
 			env.JAVA_HOME=tool 'JDK18'
@@ -57,7 +57,10 @@ node{
 		// Do not run tests in this step
 		stage('Build') {
 			echo "Init Building package"
-			sh "${mvnCmd} clean package -DskipTests"
+			
+			configFileProvider([configFile(fileId: 'a90e6c1d-7e71-4c2b-b42f-b2e27ab6203c', variable: 'MAVEN_SETTINGS')]) {
+				sh "${mvnCmd} clean package -DskipTests -s $MAVEN_SETTINGS"
+			}
 			echo "End Building package"
 		}
 		
@@ -65,8 +68,10 @@ node{
 		//Stage for execution Unit Test
 		stage('Run Unit Test') {
 			echo "Init Unit Test"
-			// TBD
-			sh "${mvnCmd} test"
+			
+			configFileProvider([configFile(fileId: 'a90e6c1d-7e71-4c2b-b42f-b2e27ab6203c', variable: 'MAVEN_SETTINGS')]) {
+				sh "${mvnCmd} test -s $MAVEN_SETTINGS"
+			}
 			echo "End Unit Test"
 		}
 		
