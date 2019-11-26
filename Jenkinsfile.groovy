@@ -24,7 +24,11 @@ node{
 			// bypass the router). The file settings.xml
 			// needs to be in the Source Code repository.
 			
-			mvnCmd = "${mvnHome}/bin/mvn  -s ./settings.xml "
+			configFileProvider([configFile(fileId: 'b6d5262b-94bc-4189-9265-480017a66d3a', variable: 'MAVEN_SETTINGS_XML')]) {
+            	mvnCmd "${mvnHome}/bin/mvn  -s $MAVEN_SETTINGS_XML "
+        	}
+			
+			mvnCmd = "${mvnHome}/bin/mvn  -s "
 			
 			
 			env.JAVA_HOME=tool 'JDK18'
