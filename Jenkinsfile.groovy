@@ -28,7 +28,7 @@ node{
             	mvnCmd "${mvnHome}/bin/mvn  -s $MAVEN_SETTINGS_XML "
         	}
 			
-			mvnCmd = "${mvnHome}/bin/mvn  -s "
+			//mvnCmd = "${mvnHome}/bin/mvn  -s "
 			
 			
 			env.JAVA_HOME=tool 'JDK18'
