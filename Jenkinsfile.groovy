@@ -45,7 +45,7 @@ node{
 			
 			mvnCmd = "${mvnHome}/bin/mvn  -s ./settings.xml "
 			
-			echo mvnHome
+			echo "Home mvn "+mvnHome
 			
 			 configFileProvider(
         	[configFile(fileId: 'a90e6c1d-7e71-4c2b-b42f-b2e27ab6203c', variable: 'MAVEN_SETTINGS')]) {
