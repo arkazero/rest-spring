@@ -24,13 +24,8 @@ node{
 			// bypass the router). The file settings.xml
 			// needs to be in the Source Code repository.
 			
-			echo "Antes del configProvider"
-			configFileProvider([configFile(fileId: 'b6d5262b-94bc-4189-9265-480017a66d3a', variable: 'MAVEN_SETTINGS_XML')]) {
-            	mvnCmd "${mvnHome}/bin/mvn -s $MAVEN_SETTINGS_XML "
-        	}
-        	echo "Despues del configProvider"
+			mvnCmd = "${mvnHome}/bin/mvn  -s ./settings.xml "
 			
-			//mvnCmd = "${mvnHome}/bin/mvn  -s "
 			
 			env.JAVA_HOME=tool 'JDK18'
 			env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
@@ -67,86 +62,86 @@ node{
 		}
 		
 		
-//		//Stage for execution Unit Test
-//		stage('Run Unit Test') {
-//			echo "Init Unit Test"
-//			// TBD
-//			sh "${mvnCmd} test"
-//			echo "End Unit Test"
-//		}
-//		
-//			// Using Maven call SonarQube for Code Analysis
-//        stage('SonarQube Scan') {
-//			echo "Init Running Code Analysis"
-//              
-//  			withSonarQubeEnv('sonar') {
-//  				sh "${mvnCmd} sonar:sonar " +
-//  				"-Dsonar.junit.reportsPath=target/surefire-reports -Dsonar.jacoco.reportPath=target/jacoco.exec"
-//  			}
-//			
-//			sleep(10)
-//			
-//			timeout(time: 1, unit: 'MINUTES') {
-//                waitForQualityGate abortPipeline: true
-//            }
-//			
-//            echo "End Running Code Analysis"
-//        }
-//        
-//        //Public in repository
-//		stage('Publish to Nexus') {
-//			echo "Publish to Nexus"
-//			// TBD
-//			sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-releases/ "+
-//			"-DaltSnapshotDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-snapshots/"
-//		}
-//        
-//        stage('Create Image'){
-//			echo "Inicia creación image"
-//			echo devTag
-//			echo prodTag
-//			
-//			openshift.withCluster() {
-//				openshift.withProject("spring-dev") {
-//				  openshift.selector("bc", "calculadora-spring").startBuild("--from-file=./target/rest-app-${version}.jar", "--wait=true")
-//		
-//				  openshift.tag("calculadora-spring:latest", "calculadora-spring:${devTag}")
-//				}
-//			  }
-//			echo "Termina creación image"
-//		}
-//
-//			stage('Deploy to DEV'){
-//				echo "Inicia Deploy"
-//				openshift.withCluster() {
-//					openshift.withProject("spring-dev") {
-//						//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
-//						openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-dev/calculadora-spring:${devTag}")
-//						
-//						// Deploy the development application.
-//						openshift.selector("dc", "calculadora-spring").rollout().latest();
-//			  
-//						// Wait for application to be deployed
-//						def dc = openshift.selector("dc", "calculadora-spring").object()
-//						def dc_version = dc.status.latestVersion
-//						echo "La ultima version es: "+dc_version
-//						def rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
-//			  
-//						echo "Waiting for ReplicationController calculadora-spring-${dc_version} to be ready"
-//						while (rc.spec.replicas != rc.status.readyReplicas) {
-//						  sleep 5
-//						  rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
-//						}		
-//					}
-//				}
-//				echo "Termina Deploy"
-//			}
-//			
-//				//Deploy to QA
-//		stage('Deploy to QA') {
-//			input "Deploy to QA?"
-//			echo "Deployed qa"
-//		}
+		//Stage for execution Unit Test
+		stage('Run Unit Test') {
+			echo "Init Unit Test"
+			// TBD
+			sh "${mvnCmd} test"
+			echo "End Unit Test"
+		}
+		
+			// Using Maven call SonarQube for Code Analysis
+        stage('SonarQube Scan') {
+			echo "Init Running Code Analysis"
+              
+  			withSonarQubeEnv('sonar') {
+  				sh "${mvnCmd} sonar:sonar " +
+  				"-Dsonar.junit.reportsPath=target/surefire-reports -Dsonar.jacoco.reportPath=target/jacoco.exec"
+  			}
+			
+			sleep(10)
+			
+			timeout(time: 1, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+            }
+			
+            echo "End Running Code Analysis"
+        }
+        
+        //Public in repository
+		stage('Publish to Nexus') {
+			echo "Publish to Nexus"
+			// TBD
+			sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-releases/ "+
+			"-DaltSnapshotDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-snapshots/"
+		}
+        
+        stage('Create Image'){
+			echo "Inicia creación image"
+			echo devTag
+			echo prodTag
+			
+			openshift.withCluster() {
+				openshift.withProject("spring-dev") {
+				  openshift.selector("bc", "calculadora-spring").startBuild("--from-file=./target/rest-app-${version}.jar", "--wait=true")
+		
+				  openshift.tag("calculadora-spring:latest", "calculadora-spring:${devTag}")
+				}
+			  }
+			echo "Termina creación image"
+		}
+
+			stage('Deploy to DEV'){
+				echo "Inicia Deploy"
+				openshift.withCluster() {
+					openshift.withProject("spring-dev") {
+						//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
+						openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-dev/calculadora-spring:${devTag}")
+						
+						// Deploy the development application.
+						openshift.selector("dc", "calculadora-spring").rollout().latest();
+			  
+						// Wait for application to be deployed
+						def dc = openshift.selector("dc", "calculadora-spring").object()
+						def dc_version = dc.status.latestVersion
+						echo "La ultima version es: "+dc_version
+						def rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
+			  
+						echo "Waiting for ReplicationController calculadora-spring-${dc_version} to be ready"
+						while (rc.spec.replicas != rc.status.readyReplicas) {
+						  sleep 5
+						  rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
+						}		
+					}
+				}
+				echo "Termina Deploy"
+			}
+			
+				//Deploy to QA
+		stage('Deploy to QA') {
+			input "Deploy to QA?"
+			echo "Deployed qa"
+		}
 		
 		}catch(e){
 	        statusProcess = "Proceso con error"
