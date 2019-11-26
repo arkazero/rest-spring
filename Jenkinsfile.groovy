@@ -98,6 +98,7 @@ node{
         
         //Public in repository
 		stage('Publish to Nexus') {
+		
 			echo "Publish to Nexus"
 			// TBD
 			
