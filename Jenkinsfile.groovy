@@ -24,11 +24,6 @@ node{
 			// bypass the router). The file settings.xml
 			// needs to be in the Source Code repository.
 			
-			echo "Antes del configProvider"
-			configFileProvider([configFile(fileId: 'b6d5262b-94bc-4189-9265-480017a66d3a', variable: 'MAVEN_SETTINGS_XML')]) {
-            	mvnCmd "${mvnHome}/bin/mvn  "
-        	}
-        	echo "Despues del configProvider"
 			
 			//mvnCmd = "${mvnHome}/bin/mvn  -s "
 			
@@ -63,6 +58,12 @@ node{
 		// Do not run tests in this step
 		stage('Build') {
 			echo "Init Building package"
+			
+			withMaven(maven: 'M2_3.6.2', mavenSettingsConfig: 'MAVEN_SETTINGS_XML') {
+        		sh "mvn clean install "
+    		}
+			
+			
 			sh "${mvnCmd} clean package -DskipTests"
 			echo "End Building package"
 		}
