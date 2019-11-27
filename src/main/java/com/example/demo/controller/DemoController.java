@@ -14,7 +14,7 @@ public class DemoController
 	@Value("${app.enviroment}")
 	private String enviroment;
 	
-    @RequestMapping("/")
+    @RequestMapping("/2")
     public List<Customer> findAll()
     {
         List<Customer> customerList = new ArrayList<Customer>();
