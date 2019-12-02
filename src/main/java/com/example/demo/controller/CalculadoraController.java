@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,11 @@ public class CalculadoraController {
 	
 	@Autowired
 	CalculadoraService calculadoraService;
+	
+	@GetMapping
+	public String home() {
+		return "Calculadora version 1.0";
+	}
 	
 	@RequestMapping("/sumar")
     public String sumar(@RequestParam Integer sumando1, @RequestParam Integer sumando2){
