@@ -20,18 +20,4 @@ public class CalculadoraService {
 		return resultado;
 	}
 	
-	
-	/**
-	 * Metodo encargado de realizar la resta de dos numeros
-	 * @param minuendo
-	 * @param sustraendo
-	 * @return
-	 */
-	public Integer restar(Integer minuendo, Integer sustraendo) {
-		Integer resultado = minuendo - sustraendo;
-		return resultado;
-	}
-	
-	
-		
 }
