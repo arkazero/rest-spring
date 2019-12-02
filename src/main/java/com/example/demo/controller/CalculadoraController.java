@@ -16,7 +16,7 @@ public class CalculadoraController {
 	
 	@GetMapping
 	public String home() {
-		return "Calculadora version 1.0";
+		return "Calculadora version 2.0 (New Release)";
 	}
 	
 	@RequestMapping("/sumar")
