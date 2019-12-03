@@ -16,7 +16,7 @@ public class CalculadoraController {
 	
 	@GetMapping
 	public String home() {
-		return "Calculadora 1.0";
+		return "Prueba Calculadora 1.0";
 	}
 	
 	@RequestMapping("/sumar")
