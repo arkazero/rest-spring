@@ -139,6 +139,7 @@ node{
 						openshift.selector('configmap', 'map-app').delete()
           				def configmap = openshift.create('configmap', 'map-app', '--from-file=./src/main/resources/application.properties' )
           				
+          				openshift.selector('configmap', 'map-app-var').delete()
           				def configmapvar = openshift.create('configmap', 'map-app-var', '--from-literal SPRING_PROFILES_ACTIVE=qa' )
 						
 						echo "Inicia comando ls"
