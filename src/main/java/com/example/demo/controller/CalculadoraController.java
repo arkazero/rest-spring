@@ -21,7 +21,7 @@ public class CalculadoraController {
 	
 	@GetMapping
 	public String home() {
-		return "Prueba Calculadora 1.0 - Env: "+nameApp;
+		return "Prueba Calculadora 3.0 - Env: "+nameApp;
 	}
 	
 	@RequestMapping("/sumar")
