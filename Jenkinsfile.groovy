@@ -139,6 +139,8 @@ node{
 						openshift.selector('configmap', 'map-app').delete()
           				def configmap = openshift.create('configmap', 'map-app', ' --from-file=./src/main/resources/application.properties ' )
 						
+						echo "Inicia comando ls"
+						sh "ls"
 						
 						// Deploy the development application.
 						openshift.selector("dc", "calculadora-spring").rollout().latest();
