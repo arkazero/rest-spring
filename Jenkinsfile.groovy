@@ -134,6 +134,12 @@ node{
 						//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
 						openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-app/calculadora-spring:${devTag}")
 						
+						
+						//Config Maps
+						openshift.selector('configmap', 'map-app').delete()
+          				def configmap = openshift.create('configmap', 'map-app', '--from-file=src/main/resources/application.properties' )
+						
+						
 						// Deploy the development application.
 						openshift.selector("dc", "calculadora-spring").rollout().latest();
 			  

@@ -15,13 +15,13 @@ public class CalculadoraController {
 	@Autowired
 	CalculadoraService calculadoraService;
 	
-
 	@Value( "${app.enviroment}" )
-	private String enviroment;
+	private String nameApp;
+	
 	
 	@GetMapping
 	public String home() {
-		return "Prueba Calculadora 1.0 - Env: "+enviroment;
+		return "Prueba Calculadora 1.0 - Env: "+nameApp;
 	}
 	
 	@RequestMapping("/sumar")
