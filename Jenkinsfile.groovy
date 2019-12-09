@@ -137,7 +137,7 @@ node{
 						
 						//Config Maps
 						openshift.selector('configmap', 'map-app').delete()
-          				def configmap = openshift.create('configmap', 'map-app', '--from-file=src/main/resources/application.properties' )
+          				def configmap = openshift.create('configmap', 'map-app', '--from-file=./src/main/resources/application.properties' )
 						
 						
 						// Deploy the development application.
