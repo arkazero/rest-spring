@@ -49,7 +49,7 @@ node{
 			
 			// Set the tag for the development image: version + build number
 			devTag  = "${version}-" + currentBuild.number
-			devTag  = "${version}"
+			//devTag  = "${version}"
 			
 			// Set the tag for the production image: version
 			prodTag = "${version}"
