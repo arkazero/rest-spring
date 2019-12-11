@@ -28,6 +28,7 @@ public class CalculadoraController {
     public String sumar(@RequestParam Integer sumando1, @RequestParam Integer sumando2){
     	Integer resultado = 0;
     	resultado = calculadoraService.sumar(sumando1, sumando2); 	
+    	System.out.println("El resultado de la suma es: "+resultado);
         return ("Resultado: "+resultado);
     }
 
