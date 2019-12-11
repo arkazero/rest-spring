@@ -29,6 +29,12 @@ public class CalculadoraController {
     	Integer resultado = 0;
     	resultado = calculadoraService.sumar(sumando1, sumando2); 	
     	System.out.println("El resultado de la suma es: "+resultado);
+    	
+    	int calculo =0;
+    	for(int i =0; i<sumando1; i++) {
+    		calculo = calculo+i;
+    	}
+    	
         return ("Resultado: "+resultado);
     }
 
