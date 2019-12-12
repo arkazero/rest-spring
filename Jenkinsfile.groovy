@@ -162,6 +162,7 @@ node{
 						  sleep 5
 						  rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
 						  countInterActual = countInterActual + 1
+							echo "Iteracion Actual: "+countInterActual
 						}
 						if (countInterActual>0){
 							echo "Se ha superado el tiempo de espera para el despliegue"
