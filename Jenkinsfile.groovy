@@ -166,7 +166,7 @@ node{
 						}
 						if (countInterActual>0){
 							echo "Se ha superado el tiempo de espera para el despliegue"
-							throw "Se ha superado el tiempo de espera para el despliegue"
+							throw new Exception("Se ha superado el tiempo de espera para el despliegue")
 						}
 
 					}
