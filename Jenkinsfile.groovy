@@ -155,10 +155,19 @@ node{
 						def rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
 			  
 						echo "Waiting for ReplicationController calculadora-spring-${dc_version} to be ready"
-						while (rc.spec.replicas != rc.status.readyReplicas) {
+
+						var countIterMax=20
+						var countInterActual=0
+						while ((rc.spec.replicas != rc.status.readyReplicas)&&countInterActual <=countIterMax) {
 						  sleep 5
 						  rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
-						}		
+						  countInterActual = countInterActual + 1
+						}
+						if (countInterActual>20){
+							echo "Se ha superado el tiempo de espera para el despliegue"
+							throw "Se ha superado el tiempo de espera para el despliegue"
+						}
+
 					}
 				}
 				echo "Termina Deploy"

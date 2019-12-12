@@ -19,7 +19,7 @@ public class CalculadoraController {
 	private String nameApp;
 	
 	
-	@GetMapping("/")
+	@GetMapping("/v2")
 	public String home() {
 		return "Calculadora 2.0 - Env: "+nameApp;
 	}
