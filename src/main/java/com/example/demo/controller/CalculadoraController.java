@@ -21,7 +21,7 @@ public class CalculadoraController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "Calculadora 1.0 - Env: "+nameApp;
+		return "Calculadora 2.0 - Env: "+nameApp;
 	}
 	
 	@RequestMapping("/sumar")
