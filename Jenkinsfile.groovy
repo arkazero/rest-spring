@@ -156,8 +156,8 @@ node{
 			  
 						echo "Waiting for ReplicationController calculadora-spring-${dc_version} to be ready"
 
-						var countIterMax=20
-						var countInterActual=0
+						def countIterMax=20
+						def countInterActual=0
 						while ((rc.spec.replicas != rc.status.readyReplicas)&&countInterActual <=countIterMax) {
 						  sleep 5
 						  rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
