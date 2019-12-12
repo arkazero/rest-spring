@@ -118,7 +118,7 @@ node{
 			echo prodTag
 			
 			openshift.withCluster() {
-				openshift.withProject("spring-app") {
+				openshift.withProject("spring-app2") {
 				  openshift.selector("bc", "calculadora-spring").startBuild("--from-file=./target/rest-app-${version}.jar", "--wait=true")
 		
 				  openshift.tag("calculadora-spring:latest", "calculadora-spring:${devTag}")
@@ -130,9 +130,9 @@ node{
 			stage('Deploy to DEV'){
 				echo "Inicia Deploy"
 				openshift.withCluster() {
-					openshift.withProject("spring-app") {
+					openshift.withProject("spring-app2") {
 						//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
-						openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-app/calculadora-spring:${devTag}")
+						openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-app2/calculadora-spring:${devTag}")
 						
 						
 						//Config Maps
