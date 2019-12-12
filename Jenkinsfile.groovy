@@ -72,7 +72,7 @@ node{
 			echo "Init Unit Test"
 			
 			configFileProvider([configFile(fileId: 'a90e6c1d-7e71-4c2b-b42f-b2e27ab6203c', variable: 'MAVEN_SETTINGS')]) {
-				sh "${mvnCmd} test -s $MAVEN_SETTINGS"
+				//sh "${mvnCmd} test -s $MAVEN_SETTINGS"
 			}
 			echo "End Unit Test"
 		}
@@ -101,14 +101,14 @@ node{
         //Public in repository
 		stage('Publish to Nexus') {
 		
-			echo "Publish to Nexus"
+			/*echo "Publish to Nexus"
 			// TBD
 			
 			configFileProvider([configFile(fileId: 'a90e6c1d-7e71-4c2b-b42f-b2e27ab6203c', variable: 'MAVEN_SETTINGS')]) {
 			
 				sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-releases/ "+
 				"-DaltSnapshotDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-snapshots/ -s $MAVEN_SETTINGS"
-			}
+			}*/
 
 		}
         
@@ -118,7 +118,7 @@ node{
 			echo prodTag
 			
 			openshift.withCluster() {
-				openshift.withProject("spring-app2") {
+				openshift.withProject("spring-app") {
 				  openshift.selector("bc", "calculadora-spring").startBuild("--from-file=./target/rest-app-${version}.jar", "--wait=true")
 		
 				  openshift.tag("calculadora-spring:latest", "calculadora-spring:${devTag}")
@@ -130,9 +130,9 @@ node{
 			stage('Deploy to DEV'){
 				echo "Inicia Deploy"
 				openshift.withCluster() {
-					openshift.withProject("spring-app2") {
+					openshift.withProject("spring-app") {
 						//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
-						openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-app2/calculadora-spring:${devTag}")
+						openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-app/calculadora-spring:${devTag}")
 						
 						
 						//Config Maps
