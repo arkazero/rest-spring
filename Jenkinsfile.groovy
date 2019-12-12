@@ -81,7 +81,7 @@ node{
         stage('SonarQube Scan') {
 			echo "Init Running Code Analysis"
               
-  			withSonarQubeEnv('sonar') {
+  			/*withSonarQubeEnv('sonar') {
   			
   				configFileProvider([configFile(fileId: 'a90e6c1d-7e71-4c2b-b42f-b2e27ab6203c', variable: 'MAVEN_SETTINGS')]) {
   					sh "${mvnCmd} sonar:sonar " +
@@ -94,7 +94,7 @@ node{
 			timeout(time: 1, unit: 'MINUTES') {
                 waitForQualityGate abortPipeline: true
             }
-			
+			*/
             echo "End Running Code Analysis"
         }
         
