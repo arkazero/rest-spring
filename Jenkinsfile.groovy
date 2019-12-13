@@ -169,7 +169,7 @@ node{
 
 							echo "Se procede a cancelar el despliegue"
 
-							openshift.selector("dc", "calculadora-spring").rollout().undo()
+							openshift.selector("dc", "calculadora-spring").rollout().cancel()
 
 							throw new Exception("Se ha superado el tiempo de espera para el despliegue")
 						}
