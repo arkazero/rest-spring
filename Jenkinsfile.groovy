@@ -166,6 +166,11 @@ node{
 						}
 						if (countInterActual>countIterMax){
 							echo "Se ha superado el tiempo de espera para el despliegue"
+
+							echo "Se procede a cancelar el despliegue"
+
+							openshift.selector("dc", "calculadora-spring").rollback()
+
 							throw new Exception("Se ha superado el tiempo de espera para el despliegue")
 						}
 
