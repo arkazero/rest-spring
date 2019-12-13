@@ -19,11 +19,16 @@ public class CalculadoraController {
 	private String nameApp;
 	
 	
-	@GetMapping("/v2")
+	@GetMapping("/version")
 	public String home() {
 		return "Calculadora 2.0 - Env: "+nameApp;
 	}
-	
+
+	@GetMapping("/healthcheck")
+	public String healthcheck() {
+		return "OK";
+	}
+
 	@RequestMapping("/sumar")
     public String sumar(@RequestParam Integer sumando1, @RequestParam Integer sumando2){
     	Integer resultado = 0;
