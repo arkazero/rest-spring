@@ -156,7 +156,7 @@ node{
 			  
 						echo "Waiting for ReplicationController calculadora-spring-${dc_version} to be ready"
 
-						def countIterMax=15
+						def countIterMax=10
 						def countInterActual=0
 						while ((rc.spec.replicas != rc.status.readyReplicas)&&countInterActual <=countIterMax) {
 						  sleep 5
@@ -164,7 +164,7 @@ node{
 						  countInterActual = countInterActual + 1
 							echo "Iteracion Actual: "+countInterActual
 						}
-						if (countInterActual>0){
+						if (countInterActual>countIterMax){
 							echo "Se ha superado el tiempo de espera para el despliegue"
 							throw new Exception("Se ha superado el tiempo de espera para el despliegue")
 						}
