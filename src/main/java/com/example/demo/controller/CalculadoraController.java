@@ -21,7 +21,7 @@ public class CalculadoraController {
 	
 	@GetMapping("/version")
 	public String home() {
-		return "Calculadora 3.1 - Env: "+nameApp;
+		return "Calculadora 1.0 - Env: "+nameApp;
 	}
 
 	@GetMapping("/healthcheck")
@@ -40,10 +40,6 @@ public class CalculadoraController {
 
 	@RequestMapping("/restar")
 	public String restar(@RequestParam Integer minuendo, @RequestParam Integer sustraendo){
-		Integer resultado = 0;
-
-
-
 		return ("Resultado: "+ (minuendo-sustraendo));
 	}
 
