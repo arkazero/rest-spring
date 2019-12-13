@@ -21,10 +21,10 @@ public class CalculadoraController {
 	
 	@GetMapping("/version")
 	public String home() {
-		return "Calculadora 2.0 - Env: "+nameApp;
+		return "Calculadora 3.0 - Env: "+nameApp;
 	}
 
-	@GetMapping("/healthcheck")
+	@GetMapping("/healthcheck7")
 	public String healthcheck() {
 		return "OK";
 	}
