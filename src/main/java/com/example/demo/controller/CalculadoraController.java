@@ -21,10 +21,10 @@ public class CalculadoraController {
 	
 	@GetMapping("/version")
 	public String home() {
-		return "Calculadora 2.0 - Env: "+nameApp;
+		return "Calculadora 2.1 - Env: "+nameApp;
 	}
 
-	@GetMapping("/healthchec")
+	@GetMapping("/healthcheck")
 	public String healthcheck() {
 		return "OK";
 	}
@@ -41,6 +41,13 @@ public class CalculadoraController {
 	@RequestMapping("/restar")
 	public String restar(@RequestParam Integer minuendo, @RequestParam Integer sustraendo){
 		int resultado =  (minuendo-sustraendo);
+		System.out.println(resultado);
+		return ("Resultado: "+ resultado);
+	}
+
+	@RequestMapping("/multiplicar")
+	public String multiplicar(@RequestParam Integer var1, @RequestParam Integer var2){
+		int resultado =  (var1*var2);
 		System.out.println(resultado);
 		return ("Resultado: "+ resultado);
 	}
