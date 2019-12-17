@@ -81,34 +81,33 @@ node{
         stage('SonarQube Scan') {
 			echo "Init Running Code Analysis"
               
-  			/*withSonarQubeEnv('sonar') {
-  			
+  			withSonarQubeEnv('sonar') {
+
   				configFileProvider([configFile(fileId: 'a90e6c1d-7e71-4c2b-b42f-b2e27ab6203c', variable: 'MAVEN_SETTINGS')]) {
   					sh "${mvnCmd} sonar:sonar " +
   					"-Dsonar.java.coveragePlugin=jacoco -Dsonar.junit.reportsPath=target/surefire-reports -Dsonar.jacoco.reportPaths=target/jacoco.exec -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml -s $MAVEN_SETTINGS"
   				}
   			}
-			
+
 			sleep(10)
-			
+
 			timeout(time: 1, unit: 'MINUTES') {
                 waitForQualityGate abortPipeline: true
             }
-			*/
             echo "End Running Code Analysis"
         }
         
         //Public in repository
 		stage('Publish to Nexus') {
 		
-			/*echo "Publish to Nexus"
+			echo "Publish to Nexus"
 			// TBD
 			
 			configFileProvider([configFile(fileId: 'a90e6c1d-7e71-4c2b-b42f-b2e27ab6203c', variable: 'MAVEN_SETTINGS')]) {
 			
 				sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-releases/ "+
 				"-DaltSnapshotDeploymentRepository=nexus::default::http://nexus3-nexus.192.168.42.220.nip.io/repository/maven-snapshots/ -s $MAVEN_SETTINGS"
-			}*/
+			}
 
 		}
         
