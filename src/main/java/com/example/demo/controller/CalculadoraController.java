@@ -29,7 +29,7 @@ public class CalculadoraController {
 		return "OK";
 	}
 
-	@RequestMapping("/sumar")
+	@GetMapping("/sumar")
     public String sumar(@RequestParam Integer sumando1, @RequestParam Integer sumando2){
     	Integer resultado = 0;
     	resultado = calculadoraService.sumar(sumando1, sumando2);
