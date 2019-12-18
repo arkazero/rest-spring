@@ -21,7 +21,7 @@ public class CalculadoraController {
 	
 	@GetMapping("/version")
 	public String home() {
-		return "Calculadora 3.2 - Env: "+nameApp;
+		return "Calculadora 1.0 - Env: "+nameApp;
 	}
 
 	@GetMapping("/healthcheck")
@@ -33,7 +33,6 @@ public class CalculadoraController {
     public String sumar(@RequestParam Integer sumando1, @RequestParam Integer sumando2){
     	Integer resultado = 0;
     	resultado = calculadoraService.sumar(sumando1, sumando2);
-
         return ("Resultado: "+resultado);
     }
 
