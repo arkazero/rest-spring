@@ -21,7 +21,7 @@ public class CalculadoraController {
 	
 	@GetMapping("/version")
 	public String home() {
-		return "Calculadora 3.1 - Env: "+nameApp;
+		return "Calculadora 3.2 - Env: "+nameApp;
 	}
 
 	@GetMapping("/healthcheck2")
