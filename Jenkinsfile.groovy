@@ -164,7 +164,7 @@ node{
 						if (countInterActual>countIterMax){
 							echo "Se ha superado el tiempo de espera para el despliegue"
 
-							echo "Se procede a cancelar el despliegue"
+							echo "Se procede a cancelar el despliegue y a mantener la última versión estable"
 
 							openshift.selector("dc", "calculadora-spring").rollout().cancel()
 
