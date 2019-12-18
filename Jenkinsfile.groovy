@@ -153,7 +153,7 @@ node{
 			  
 						echo "Waiting for ReplicationController calculadora-spring-${dc_version} to be ready"
 
-						def countIterMax=15
+						def countIterMax=18
 						def countInterActual=0
 						while ((rc.spec.replicas != rc.status.readyReplicas)&&countInterActual <=countIterMax) {
 						  sleep 5
