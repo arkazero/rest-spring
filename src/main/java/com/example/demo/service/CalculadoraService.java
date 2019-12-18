@@ -19,5 +19,10 @@ public class CalculadoraService {
 		}
 		return resultado;
 	}
+
+	public Integer restar(Integer minuendo, Integer sustraendo) {
+		Integer resultado = minuendo + sustraendo;
+		return resultado;
+	}
 	
 }
