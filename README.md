@@ -2,4 +2,4 @@
 Proyecto de Ejemplo que  expone un api rest en SpringBoot 
 
 
-Autor Wilmer 
+Autor Wilmer Aguilera
