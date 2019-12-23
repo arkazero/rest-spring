@@ -1,2 +1,2 @@
 # rest-spring
-Proyecto de Ejemplo que expone un api rest en SpringBoot
+Proyecto de ejemplo que crea y expone un api rest en SpringBoot
