@@ -37,7 +37,7 @@ node{
 		//Stage para obtener el código fuente del repositorio GIT
 		stage('Checkout'){
 			echo "Checkout Source"
-			git credentialsId: 'githubWilmer', url: 'https://github.com/wilmeraguilera/rest-spring.git'
+			git credentialsId: 'githubWilmer', url: 'https://github.com/wwilmeraguilera/rest-spring.git'
 
 			groupId    = getGroupIdFromPom("pom.xml")
 			artifactId = getArtifactIdFromPom("pom.xml")
