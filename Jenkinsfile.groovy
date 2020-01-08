@@ -179,7 +179,55 @@ node{
 				//Deploy to QA
 		stage('Deploy to QA') {
 			input "Deploy to QA?"
-			echo "Deployed qa"
+			echo "Inicia Deploy"
+			openshift.withCluster() {
+				openshift.withProject("spring-app-qa") {
+					//openshift.set("image", "dc/eap-app", "eap-app=172.30.1.1:5000/pipeline-test-dev/eap-app:${devTag}")
+					openshift.set("image", "dc/calculadora-spring", "calculadora-spring=172.30.1.1:5000/spring-app/calculadora-spring:${devTag}")
+
+
+					//Config Maps
+					openshift.selector('configmap', 'map-app').delete()
+					def configmap = openshift.create('configmap', 'map-app', '--from-file=./src/main/resources/application-qa.properties' )
+
+					openshift.selector('configmap', 'map-app-var').delete()
+					def configmapvar = openshift.create('configmap', 'map-app-var', '--from-literal SPRING_PROFILES_ACTIVE=qa' )
+
+					echo "Inicia comando ls"
+					sh "ls"
+
+					// Deploy the development application.
+					openshift.selector("dc", "calculadora-spring").rollout().latest();
+
+					// Wait for application to be deployed
+					def dc = openshift.selector("dc", "calculadora-spring").object()
+					def dc_version = dc.status.latestVersion
+					echo "La ultima version es: "+dc_version
+					def rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
+
+					echo "Waiting for ReplicationController calculadora-spring-${dc_version} to be ready"
+
+					def countIterMax=18
+					def countInterActual=0
+					while ((rc.spec.replicas != rc.status.readyReplicas)&&countInterActual <=countIterMax) {
+						sleep 5
+						rc = openshift.selector("rc", "calculadora-spring-${dc_version}").object()
+						countInterActual = countInterActual + 1
+						echo "Iteracion Actual: "+countInterActual
+					}
+					if (countInterActual>countIterMax){
+						echo "Se ha superado el tiempo de espera para el despliegue"
+
+						echo "Se procede a cancelar el despliegue y a mantener la última versión estable"
+
+						openshift.selector("dc", "calculadora-spring").rollout().cancel()
+
+						throw new Exception("Se ha superado el tiempo de espera para el despliegue")
+					}
+
+				}
+			}
+			echo "Termina Deploy"
 		}
 
 		}catch(e){
