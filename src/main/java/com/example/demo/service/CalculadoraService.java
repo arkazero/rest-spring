@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Vector;
+
 @Service
 public class CalculadoraService {
 	
@@ -30,6 +32,16 @@ public class CalculadoraService {
 		Integer resultado = minuendo + sustraendo;
 
 		System.out.println("El resultado de la rest es: "+resultado);
+
+
+		Vector v = new Vector();
+		for(int i = 0; i<10000;i++)
+		{
+			byte b[] = new byte[1048576];
+			v.add(b);
+			Runtime rt = Runtime.getRuntime();
+			System.out.println( "free memory: " + rt.freeMemory() );
+		}
 
 		return resultado;
 	}
