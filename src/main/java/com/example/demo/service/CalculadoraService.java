@@ -13,10 +13,15 @@ public class CalculadoraService {
 	 */
 	public Integer sumar(Integer sumando1, Integer sumando2) {
 		Integer resultado = sumando1 + sumando2;
-		
-		if(resultado.intValue()==6) {
-			System.out.println("El resultado es 6");
+
+		long start  = System.currentTimeMillis();
+		long count = 0l;
+		for(long x=0;x<Integer.MAX_VALUE ;x++){
+			count+=1;
 		}
+		long end = System.currentTimeMillis();
+		System.out.println(end-start +" ms");
+
 		return resultado;
 	}
 
