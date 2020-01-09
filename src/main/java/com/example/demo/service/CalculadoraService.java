@@ -25,5 +25,14 @@ public class CalculadoraService {
 		return resultado;
 	}
 
+	public Integer restar(Integer minuendo, Integer sustraendo){
+
+		Integer resultado = minuendo + sustraendo;
+
+		System.out.println("El resultado de la rest es: "+resultado);
+
+		return resultado;
+	}
+
 	
 }
