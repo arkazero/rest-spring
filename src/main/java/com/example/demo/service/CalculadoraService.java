@@ -35,7 +35,7 @@ public class CalculadoraService {
 
 
 		Vector v = new Vector();
-		for(int i = 0; i<10;i++)
+		for(int i = 0; i<50;i++)
 		{
 			byte b[] = new byte[1048576];
 			v.add(b);
