@@ -36,4 +36,11 @@ public class CalculadoraController {
         return ("Resultado: "+resultado);
     }
 
+	@GetMapping("/restar")
+	public String restar(@RequestParam Integer minuendo, @RequestParam Integer sustraendo){
+		Integer resultado = 0;
+		resultado = calculadoraService.sumar(minuendo, sustraendo);
+		return ("Resultado: "+resultado);
+	}
+
 }
