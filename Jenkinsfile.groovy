@@ -27,7 +27,7 @@ node{
 			mvnCmd = "${mvnHome}/bin/mvn "
 
 
-			env.JAVA_HOME=tool 'JDK18'
+			env.JAVA_HOME=tool 'JDK11'
 			env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
 			sh 'java -version'
 
