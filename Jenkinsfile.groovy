@@ -59,7 +59,7 @@ node{
 			echo "Init Building package"
 
 			configFileProvider([configFile(fileId: 'a90e6c1d-7e71-4c2b-b42f-b2e27ab6203c', variable: 'MAVEN_SETTINGS')]) {
-				sh "${mvnCmd} clean package -DskipTests -s $MAVEN_SETTINGS"
+				sh "${mvnCmd} clean install -DskipTests -s $MAVEN_SETTINGS"
 			}
 			echo "End Building package"
 		}
@@ -76,7 +76,7 @@ node{
 		}
 
 			// Using Maven call SonarQube for Code Analysis
-        stage('SonarQube Scan') {
+        /*stage('SonarQube Scan') {
 			echo "Init Running Code Analysis"
 
   			withSonarQubeEnv('sonar') {
@@ -94,10 +94,10 @@ node{
             }
 
             echo "End Running Code Analysis"
-        }
+        }*/
 
         //Public in repository
-		stage('Publish to Nexus') {
+		/*stage('Publish to Nexus') {
 
 			echo "Publish to Nexus"
 			// TBD
@@ -107,7 +107,7 @@ node{
 				sh "${mvnCmd} deploy -DskipTests=true  -s $MAVEN_SETTINGS"
 			}
 
-		}
+		}*/
 
         stage('Create Image'){
 			echo "Inicia creación image"

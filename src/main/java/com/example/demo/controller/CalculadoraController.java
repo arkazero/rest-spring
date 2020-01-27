@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +37,14 @@ public class CalculadoraController {
     public String sumar(@RequestParam Integer sumando1, @RequestParam Integer sumando2){
     	Integer resultado = 0;
     	resultado = calculadoraService.sumar(sumando1, sumando2);
+    	
+    	try {
+			createFiles();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
         return ("Resultado: "+resultado);
     }
 
@@ -41,6 +53,14 @@ public class CalculadoraController {
 		Integer resultado = 0;
 		resultado = calculadoraService.restar(minuendo, sustraendo);
 		return ("Resultado: "+resultado);
+	}
+	
+	private void createFiles() throws IOException {
+		for(int i = 0;i<10; i++) {
+			String data = "Test data";
+			String nameFile = "File"+Math.random();
+			Files.write(Paths.get("/data/"+nameFile), data.getBytes());
+		}
 	}
 
 }

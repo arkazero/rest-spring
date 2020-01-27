@@ -30,3 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 /.attach_pid23741
+/bin/
