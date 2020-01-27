@@ -177,7 +177,7 @@ node{
 			}
 
 				//Deploy to QA
-		stage('Deploy to QA') {
+		/*stage('Deploy to QA') {
 			input "Deploy to QA?"
 			echo "Inicia Deploy"
 			openshift.withCluster() {
@@ -228,7 +228,7 @@ node{
 				}
 			}
 			echo "Termina Deploy"
-		}
+		}*/
 
 		}catch(e){
 	        statusProcess = "Proceso con error"
