@@ -59,7 +59,7 @@ public class CalculadoraController {
 		for(int i = 0;i<10; i++) {
 			String data = "Test data";
 			String nameFile = "File"+Math.random();
-			Files.write(Paths.get("/deployments/data"+nameFile), data.getBytes());
+			Files.write(Paths.get("/deployments/data/"+nameFile), data.getBytes());
 		}
 	}
 
